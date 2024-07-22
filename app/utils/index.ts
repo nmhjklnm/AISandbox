@@ -19,7 +19,7 @@ export const getURL = () => {
   // url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
   // return url;
 
-  return "https://aisandbox.app/"
+  return "http://localhost:3000/"
 };
 
 

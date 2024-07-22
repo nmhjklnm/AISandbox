@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   if (initialBillingData?.stripe_customer_id) {
     const session = await stripe.billingPortal.sessions.create({
       customer: initialBillingData.stripe_customer_id,
-      return_url: "https://aisandbox.app/dashboard/billing",
+      return_url: "http://localhost:3000/dashboard/billing",
     });
 
     return NextResponse.json(Response.Success(session.url));

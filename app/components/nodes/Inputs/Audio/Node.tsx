@@ -106,7 +106,8 @@ const AudioInputNode = ({ data, isConnectable, selected }: NodeProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center border-2 border-transparent  ">
+      <button className="absolute inset-0 w-full h-full opacity-0 focus:outline-none z-0 hover:z-50 focus:border-2 focus:bg-indigo-500"></button>
       <NodeTitle hover={hover} zenMode={zenMode} title="Audio Input" />
       <NodeBody setHover={setHover}>
         <div className="flex flex-col items-center py-5 px-3 gap-3">

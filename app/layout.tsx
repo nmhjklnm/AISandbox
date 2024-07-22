@@ -11,8 +11,8 @@ const satoshiFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AI Sandbox",
-  metadataBase: new URL("https://aisandbox.app"),
+  title: "Nbias",
+  metadataBase: new URL("http://localhost:3000"),
   icons: {
     icon: "https://raw.githubusercontent.com/Shubhamai/AISandbox/main/public/icon.svg",
     shortcut:
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   description: "Prototyping AI architectures in a node based editor.",
   openGraph: {
-    title: "AI Sandbox",
+    title: "Workflow",
     description: "Prototyping AI architectures in a node based editor.",
   },
   twitter: {

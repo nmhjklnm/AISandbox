@@ -46,7 +46,7 @@ def execute_project(project_id: str, api_key: str, inputs: List[dict]):
     response = requests.request(
         "POST",
         # TODO : Might update to api/v2 in future, need backward compatability
-        "https://aisandbox.app/api/v1/execute/",
+        "http://localhost:3000/api/v1/execute/",
         headers={
             "Content-Type": "application/json",
             "Authorization": api_key,

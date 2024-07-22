@@ -5,7 +5,7 @@ import Link from "next/link";
 import { cn } from "@/app/utils";
 import { buttonVariants } from "@/app/components/ui/button";
 import { Workflow } from "lucide-react";
-import Signup from '@/app/components/dashboard/Signup';
+import Login from '@/app/components/dashboard/Login';
 export const metadata: Metadata = {
     title: "Authentication",
     description: "Authentication forms built using the components.",
@@ -15,7 +15,7 @@ export default function AuthenticationPage() {
     return (
         <>
             <div className="container relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-                <div className="hidden h-full flex-col flex-wrap justify-end bg-muted p-10 bg-gradient-to-br from-blue-200 to-red-100 lg:flex">
+                <div className="hidden h-full flex-col flex-wrap justify-end bg-muted p-10 bg-gradient-to-r from-gray-900 to-red-100 lg:flex">
                     <div className="flex justify-end items-end">
                         <Link
                             href="http://localhost:3000"
@@ -36,7 +36,7 @@ export default function AuthenticationPage() {
 
                 <div className="lg:p-8">
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                        <Signup />
+                        <Login />
                     </div>
                 </div>
             </div>

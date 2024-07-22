@@ -116,14 +116,6 @@ export default function Profile() {
         let { data: projects, error } = await supabase
           .from("projects")
           .select("*");
-        // let projects = [
-        //   {
-        //     id: "1",
-        //     name: "Project 1",
-        //     created_at: "2021-10-10T00:00:00.000Z",
-        //     image: "",
-        //   },
-        // ];
         if (!projects) {
           console.log(error);
         } else {

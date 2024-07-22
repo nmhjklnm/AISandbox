@@ -48,19 +48,11 @@ export default async function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center dotted-background">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-violet-200 to-pink-200">
       <Header user={session ? session.user : null} />
 
-      <div className="flex flex-col items-center gap-10 pt-[200px] mt-[100px] bg-white border shadow-sm px-20 rounded-xl shadow-sm">
+      <div className="container flex flex-col items-center gap-10 pt-52 mt-20 bg-transparent border px-4 rounded-full border-violet-300 shadow-md">
         <div className="flex flex-col items-center gap-10 drop-shadow-md p-8 rounded-lg">
-          {/* <Link
-            className="border-2 shadow-md hover:shadow-lg hover:shadow-yellow-200 shadow-yellow-300 px-3 min-w-max py-1.5 font-semibold w-36 text-center text-sm rounded-full bg-yellow-300/10 border-yellow-300 text-yellow-900 flex flex-row gap-2"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/shubhamai/aisandbox"
-          >
-            <ArrowUpRight /> Currently In Development
-          </Link> */}
           <h1 className="flex flex-col gap-2 items-center font-black text-6xl bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
             Build AI Tools
           </h1>
@@ -70,16 +62,13 @@ export default async function Home() {
           <div className="flex flex-row gap-5">
             <Link href={session ? "/dashboard" : "/signup"}>
               <Button
-                className="flex gap-2 w-fit rounded-3xl border-2 pl-6 pr-4 border-foreground font-bold hover:shadow-xl transition-transform transition-shadow"
+                className="flex gap-2 w-fit rounded-3xl border-2 pl-6 pr-4 border-foreground font-bold hover:shadow-xl transition-all transform hover:scale-105"
                 size="lg"
-                // variant={'ghost'}
               >
                 Get Started
                 <ChevronRight />
               </Button>
             </Link>
-
-           
           </div>
         </div>
 
@@ -91,11 +80,11 @@ export default async function Home() {
           alt="Editor"
         />
 
-        <div className="flex flex-row mt-36 items-center gap-16">
+        <div className="flex mt-36 items-center gap-16 flex-col md:flex-row">
           <Link
             rel="noopener noreferrer"
             target="_blank"
-            href="https://github.com/shubhamai/aisandbox"
+            href="https://github.com/nmhjklnm/aisandbox"
           >
             <LandingCard title="Open Source">
               AI Sandbox is an open source project. <br />
@@ -117,8 +106,8 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 grid-flow-rows gap-4 w-[1400px] mt-20">
-          <div className="col-span-1 flex flex-col gap-4 bg-gradient-to-b from-foreground/5 to-background border border-slate-300 p-4 rounded-lg hover:drop-shadow-lg hover:-translate-y-3 transition-transform">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 grid-flow-rows gap-10 w-auto mt-20">
+          <div className="col-span-1 flex flex-col gap-4 bg-gradient-to-b from-foreground/5 to-background border border-slate-300 p-4 rounded-lg hover:drop-shadow-lg hover:-translate-y-3 transition-transform  md:-ml-10">
             <div className="font-bold text-2xl">API Integration</div>
             <div className="text-slate-600 font-medium">
               AI Sandbox provides an REST API endpoint to integrate the AI
@@ -128,7 +117,7 @@ export default async function Home() {
               <ExampleCodes />
             </div>
           </div>
-          <div className="col-span-1 flex flex-col gap-4 bg-gradient-to-b from-foreground/5 to-background border border-slate-300 p-4 rounded-lg hover:drop-shadow-lg hover:-translate-y-3 transition-transform">
+          <div className="col-span-1 flex flex-col gap-4 bg-gradient-to-b from-foreground/5 to-background border border-slate-300 p-4 rounded-lg hover:drop-shadow-lg hover:-translate-y-3 transition-transform md:-mr-10">
             <div className="font-bold text-2xl">Moniter Usage</div>
             <div className="text-slate-600 font-medium">
               All your API usage is monitered and displayed in the dashboard.
@@ -138,17 +127,17 @@ export default async function Home() {
             <RandomChart />
           </div>
         </div>
-        <div className="flex flex-col gap-16 my-[200px] items-center justify-between w-[1000px]">
+
+
+        <div className="container flex flex-col gap-16 my-[200px] items-center justify-between ">
           <div className="text-left font-bold text-5xl">
             Start building AI architectures{" "}
             <span className="underline">{getTimeDescription()}</span>.
           </div>
           <Link href={session ? "/dashboard" : "/signup"} className="">
             <Button
-              className="flex gap-2 w-fit rounded-3xl border-2 pl-6 pr-4 border-foreground font-bold hover:shadow-xl transition-transform transition-shadow"
-              size="lg"
-              // variant={'ghost'}
-            >
+              className="flex gap-2 w-fit rounded-3xl border-2 pl-6 pr-4 border-foreground font-bold hover:shadow-xl transition-all transform hover:scale-105"
+              size="lg">
               Get Started
               <ChevronRight />
             </Button>
@@ -156,9 +145,15 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* <div className="w-screen flex flex-row items-center justify-center bg-gradient-to-r from-slate-50 via-gray-100 to-slate-50">
+
+
+      <div className="w-screen flex flex-row items-center justify-center bg-transparent container rounded-lg shadow m-4">
         <Footer />
-      </div> */}
+      </div>
+      <div className="container justify-center bg-transparent">
+      <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <span className="block text-sm text-gray-500 text-center dark:text-gray-400">© 2024 Nbias™. All Rights Reserved.</span>
+      </div>
     </div>
   );
 }

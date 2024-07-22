@@ -14,19 +14,15 @@ import {
 } from "../ui/navigation-menu";
 import { User } from "@supabase/auth-helpers-nextjs";
 import { Button } from "../ui/button";
-import { Container } from "lucide-react";
+import { Workflow } from "lucide-react";
 
 const Header = ({ user }: { user: User | null }) => {
   return (
-    <div className="fixed top-3 flex flex-row items-center justify-between w-[800px] backdrop-blur-sm bg-background/70 rounded-full py-2 pl-4 pr-2 z-20 shadow-md">
-      <Link
-        href="/"
-        className="flex flex-row gap-2 items-center text-2xl font-bold"
-      >
-        <Container /> AISandbox
+    <div className="fixed top-3 flex flex-row items-center justify-between mx-10 w-4/5 md:w-3/4 lg:w-2/3 backdrop-blur-sm bg-background/70 rounded-full shadow-md py-2 pl-4 pr-2 z-20 ">
+      <Link href="/" className="flex flex-row gap-2 items-center text-2xl font-bold">
+        <Workflow />Nbias
       </Link>
 
-     
       <div>
         {user ? (
           <Link href="/dashboard">
