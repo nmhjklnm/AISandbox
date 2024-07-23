@@ -23,14 +23,6 @@ export const metadata: Metadata = {
     title: "Workflow",
     description: "Prototyping AI architectures in a node based editor.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "AISandbox",
-    description: "Prototyping AI architectures in a node based editor.",
-    images: [
-      "https://raw.githubusercontent.com/Shubhamai/AISandbox/main/public/icon.svg",
-    ],
-  },
 };
 
 export default function RootLayout({

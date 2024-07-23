@@ -13,11 +13,6 @@ import ExampleCodes from "./components/home/ExampleCodes";
 export const runtime = "edge";
 
 export default async function Home() {
-  // This is currently short-circuited per [this issue](https://github.com/vercel/next.js/issues/45371)
-  // const supabase = createServerComponentClient<Database>({
-  //   headers: () => new Headers(),
-  //   cookies: () => new RequestCookies(new Headers()),
-  // });
 
   const supabase = createServerComponentClient({ cookies });
 
@@ -84,10 +79,10 @@ export default async function Home() {
           <Link
             rel="noopener noreferrer"
             target="_blank"
-            href="https://github.com/nmhjklnm/aisandbox"
+            href="https://github.com"
           >
             <LandingCard title="Open Source">
-              AI Sandbox is an open source project. <br />
+              Nbias is an open source project. <br />
               You can contribute to the project on Github.
             </LandingCard>
           </Link>
@@ -110,7 +105,7 @@ export default async function Home() {
           <div className="col-span-1 flex flex-col gap-4 bg-gradient-to-b from-foreground/5 to-background border border-slate-300 p-4 rounded-lg hover:drop-shadow-lg hover:-translate-y-3 transition-transform  md:-ml-10">
             <div className="font-bold text-2xl">API Integration</div>
             <div className="text-slate-600 font-medium">
-              AI Sandbox provides an REST API endpoint to integrate the AI
+              Nbias provides an REST API endpoint to integrate the AI
               architectures to any application. Currently supportes Python.
             </div>
             <div>

@@ -2,13 +2,14 @@ import { Node } from "reactflow";
 
 export const fetchResult = async (req: any) => {
   const OPENAI_API_KEY: string = process.env.OPENAI_API_KEY as string;
+  const OPENAI_API_BASE: string = process.env.OPENAI_API_BASE as string;
 
   const payload = {
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: req.text }],
   };
 
-  const result = await fetch("https://api.openai.com/v1/chat/completions", {
+  const result = await fetch(`${OPENAI_API_BASE}/chat/completions`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${OPENAI_API_KEY}`,

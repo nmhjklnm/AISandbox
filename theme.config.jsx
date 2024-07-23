@@ -7,7 +7,7 @@ const config = {
   logo: (
     <div style={{ display: "flex", gap: 6 }}>
       <Container className="flex" />
-      <p>AISandbox</p>
+      <p>Nbias</p>
     </div>
   ),
   project: {

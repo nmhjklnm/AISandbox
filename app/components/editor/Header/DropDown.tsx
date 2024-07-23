@@ -179,7 +179,7 @@ const DropDown = ({ projectName }: { projectName: string }) => {
               className="flex flex-row items-center"
               rel="noopener noreferrer"
               target="_blank"
-              href="https://github.com/Shubhamai/AISandbox"
+              href="https://github.com"
             >
               <Github className="mr-2 h-4 w-4" /> <span>GitHub</span>
             </Link>

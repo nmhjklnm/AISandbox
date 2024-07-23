@@ -27,7 +27,7 @@ export default function DashboardLayout({
   return (
     <div className="grid grid-cols-[220px_1fr] grid-rows-[50px_1fr] h-full w-full border border-background py-4">
       <Link href={"/"} className="px-4 font-extrabold text-xl border-b">
-        AISandbox
+        Nbias
       </Link>
       <div className="pr-4 flex flex-col items-end border-b">
         {/* <FeedbackDialogForm /> */}
@@ -59,7 +59,7 @@ export default function DashboardLayout({
             rel="noopener noreferrer"
             target="_blank"
             className="text-base flex flex-row items-center gap-2"
-            href="https://github.com/shubhamai/aisandbox"
+            href="https://github.com/"
           >
             <ArrowUpRight className="text-foreground/50" size={21} />{" "}
             GitHub
