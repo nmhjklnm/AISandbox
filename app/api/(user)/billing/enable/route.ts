@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { Response } from "@/app/utils/response";
 import Stripe from "stripe";
 import { supabaseAdmin } from "@/app/lib/supabase/admin";
-import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 import dayjs from "dayjs";
 
 export const runtime = "edge";
@@ -47,7 +46,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const baseURL = getURL(); // 获取动态生成的 baseURL
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL; 
   const successURL = `${baseURL}dashboard/billing?session_id={CHECKOUT_SESSION_ID}`;
   const cancelURL = `${baseURL}dashboard/billing`;
 

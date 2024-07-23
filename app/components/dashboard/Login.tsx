@@ -11,7 +11,6 @@ import { toast, useToast } from "@/app/components/ui/use-toast";
 import { ChevronLeft, Cross, Loader } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/app/components/ui/separator";
-import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 
 export default function Login() {
   const router = useRouter();
@@ -29,7 +28,7 @@ export default function Login() {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const baseURL = getURL(); // 获取 baseURL
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL; // 获取 baseURL
 
     if (isPasswordNull) {
       const { data, error } = await supabase.auth.signInWithOtp({
@@ -136,7 +135,7 @@ export default function Login() {
             variant={"secondary"}
             className="flex flex-row items-center gap-3 rounded-md w-full"
             onClick={async () => {
-              const baseURL = getURL(); // 获取 baseURL
+              const baseURL = process.env.NEXT_PUBLIC_BASE_URL; 
               const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "github",
                 options: {

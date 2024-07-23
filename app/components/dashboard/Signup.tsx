@@ -11,13 +11,13 @@ import { toast, useToast } from "@/app/components/ui/use-toast";
 import { ChevronLeft, Loader } from "lucide-react";
 import { Separator } from "@/app/components/ui/separator";
 import Image from "next/image";
-import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
+import { getURL } from "@/app/utils/index"; 
 
 export default function Signup() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const { toast } = useToast();
-  const baseURL = getURL(); // 获取基础URL
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL; 
   const [loading, setLoading] = useState(false);
   const [isPasswordNull, setIsPasswordNull] = useState(true);
 

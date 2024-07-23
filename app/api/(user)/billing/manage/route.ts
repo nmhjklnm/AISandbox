@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { Response } from "@/app/utils/response";
 import Stripe from "stripe";
 import { supabaseAdmin } from "@/app/lib/supabase/admin";
-import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 
 export const runtime = "edge";
 
@@ -39,7 +38,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (initialBillingData?.stripe_customer_id) {
-    const baseURL = getURL(); // 获取动态生成的 baseURL
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL; // 获取动态生成的 baseURL
     const returnURL = `${baseURL}dashboard/billing`; // 构建 return_url
 
     const session = await stripe.billingPortal.sessions.create({

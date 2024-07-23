@@ -1,7 +1,7 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { getURL } from '@/app/utils/index'; // 导入 getURL 函数
+
 
 export const runtime = 'edge';
 
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
   }
 
   // 获取动态生成的 baseURL
-  const baseURL = getURL();
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const redirectURL = `${baseURL}dashboard`;
 
   // URL to redirect to after sign in process completes

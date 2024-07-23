@@ -68,7 +68,7 @@ const ProjectContext = ({
 //   const [projectState, setProjectState] = useState<any>(project);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const baseurl = getURL()
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   return (
     <Dialog>
       <ContextMenu>
@@ -135,7 +135,7 @@ const ProjectContext = ({
             onClick={async () => {
               // TODO : Generate link more dynamically
               await navigator.clipboard.writeText(
-                `${baseurl}/project/${projectState.id}`
+                `${baseURL}project/${projectState.id}`
               );
             }}
             inset

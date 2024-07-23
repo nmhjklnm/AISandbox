@@ -30,7 +30,7 @@ export const APICodeDialog = ({ projectId }: { projectId: string }) => {
     });
   }
 
-  const baseURL = getURL(); // 使用 getURL 函数获取基准 URL
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL; // 使用 getURL 函数获取基准 URL
   const url = `${baseURL}api/v1/execute/`;
 
   const pythonCode = `

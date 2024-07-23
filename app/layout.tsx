@@ -1,14 +1,15 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { Toaster } from "@/app/components/ui/toaster";
 import { ThemeProvider } from "@/app/components/ui/theme-provider";
 import { Metadata } from "next";
 import localFont from "next/font/local";
+export const dynamic = 'force-dynamic'
 
 const satoshiFont = localFont({
   src: "./fonts/Satoshi-Variable.ttf",
   variable: "--font-satoshi",
 });
+
 
 export const metadata: Metadata = {
   title: "Nbias",

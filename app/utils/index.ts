@@ -9,17 +9,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getURL = () => {
-  let url =
-    process?.env?.NEXT_PUBLIC_SITE_URL ?? 
-    process?.env?.NEXT_PUBLIC_VERCEL_URL ?? 
-    "http://localhost:3000"; 
-
-
+  let url = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"; 
   url = url.includes("http") ? url : `https://${url}`;
-
-  // 确保URL以斜杠结尾
   url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
-
   return url;
 };
 
