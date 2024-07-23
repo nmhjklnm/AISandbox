@@ -17,7 +17,7 @@ export default function Signup() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const { toast } = useToast();
-
+  const baseURL = getURL(); // 获取基础URL
   const [loading, setLoading] = useState(false);
   const [isPasswordNull, setIsPasswordNull] = useState(true);
 
@@ -30,7 +30,6 @@ export default function Signup() {
     const name = e.target.name.value;
     const password = e.target.password.value;
 
-    const baseURL = getURL(); // 获取基础URL
 
     if (isPasswordNull) {
       const { error } = await supabase.auth.signInWithOtp({
