@@ -14,7 +14,7 @@ export const getURL = () => {
     process?.env?.NEXT_PUBLIC_VERCEL_URL ?? 
     "http://localhost:3000"; 
 
-  // 确保非localhost的URL以https开头
+
   url = url.includes("http") ? url : `https://${url}`;
 
   // 确保URL以斜杠结尾
