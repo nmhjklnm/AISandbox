@@ -15,6 +15,7 @@ import { useToast } from "@/app/components/ui/use-toast";
 import { CopyIcon, Webhook } from "lucide-react";
 import graphState from "@/app/state/graphState";
 import { getStartingInputNodes } from "@/app/lib/execute";
+import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 
 export const APICodeDialog = ({ projectId }: { projectId: string }) => {
   const { toast } = useToast();
@@ -29,7 +30,8 @@ export const APICodeDialog = ({ projectId }: { projectId: string }) => {
     });
   }
 
-  let url = `http://localhost:3000/api/v1/execute/`;
+  const baseURL = getURL(); // 使用 getURL 函数获取基准 URL
+  const url = `${baseURL}api/v1/execute/`;
 
   const pythonCode = `
   import requests

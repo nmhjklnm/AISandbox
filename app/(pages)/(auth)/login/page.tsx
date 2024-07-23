@@ -18,7 +18,7 @@ export default function AuthenticationPage() {
                 <div className="hidden h-full flex-col flex-wrap justify-end bg-muted p-10 bg-gradient-to-br from-blue-200 to-red-100 lg:flex">
                     <div className="flex justify-end items-end">
                         <Link
-                            href="http://localhost:3000"
+                            href="/"
                             className="flex flex-row items-center gap-2 font-semibold"
                         >
                             <Workflow /> Nbias

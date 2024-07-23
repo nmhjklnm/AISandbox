@@ -2,6 +2,8 @@ import Link from "next/link";
 import { cva } from "class-variance-authority";
 import { Workflow } from "lucide-react";
 
+
+
 const footerNavigationMenuTriggerStyle = cva(
   "group inline-flex w-max items-center justify-center rounded-md text-sm  transition-colors hover:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
 );
@@ -56,7 +58,7 @@ const Footer = async () => {
     <div className="flex flex-row justify-between items-start w-[800px] mt-[40px] mb-[30px] bg-transparent">
       <div className="flex flex-col gap-10">
         <Link
-          href="http://localhost:3000"
+          href="/"
           className="flex flex-row items-center gap-2 font-semibold"
         >
           <Workflow /> Nbias

@@ -164,7 +164,7 @@ const DropDown = ({ projectName }: { projectName: string }) => {
               className="flex flex-row items-center"
               rel="noopener noreferrer"
               target="_blank"
-              href="http://localhost:3000/docs"
+              href="/docs"
             >
               <HelpCircle className="mr-2 h-4 w-4" /> <span>Docs</span>
               {/* <MenubarShortcut>?</MenubarShortcut> */}

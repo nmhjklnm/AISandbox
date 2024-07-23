@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Response } from "@/app/utils/response";
 import Stripe from "stripe";
 import { supabaseAdmin } from "@/app/lib/supabase/admin";
+import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 import dayjs from "dayjs";
 
 export const runtime = "edge";
@@ -46,6 +47,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const baseURL = getURL(); // 获取动态生成的 baseURL
+  const successURL = `${baseURL}dashboard/billing?session_id={CHECKOUT_SESSION_ID}`;
+  const cancelURL = `${baseURL}dashboard/billing`;
+
   if (initialBillingData?.active === false) {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -60,9 +65,8 @@ export async function POST(request: NextRequest) {
       // subscription_data: {
       //   billing_cycle_anchor: dayjs().add(1, "month").unix(),
       // },
-      success_url:
-        "http://localhost:3000/dashboard/billing?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "http://localhost:3000/dashboard/billing",
+      success_url: successURL,
+      cancel_url: cancelURL,
     });
 
     return NextResponse.json(Response.Success(session.url));
@@ -100,9 +104,8 @@ export async function POST(request: NextRequest) {
       // subscription_data: {
       //   billing_cycle_anchor: dayjs().add(1, "month").unix(),
       // },
-      success_url:
-        "http://localhost:3000/dashboard/billing?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "http://localhost:3000/dashboard/billing",
+      success_url: successURL,
+      cancel_url: cancelURL,
     });
 
     return NextResponse.json(Response.Success(session.url));

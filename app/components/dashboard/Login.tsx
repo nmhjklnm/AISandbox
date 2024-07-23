@@ -11,6 +11,7 @@ import { toast, useToast } from "@/app/components/ui/use-toast";
 import { ChevronLeft, Cross, Loader } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/app/components/ui/separator";
+import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 
 export default function Login() {
   const router = useRouter();
@@ -28,11 +29,13 @@ export default function Login() {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
+    const baseURL = getURL(); // 获取 baseURL
+
     if (isPasswordNull) {
       const { data, error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `http://nbias.y1h.top/auth/callback`,
+          emailRedirectTo: `${baseURL}auth/callback`,
         },
       });
 
@@ -66,6 +69,7 @@ export default function Login() {
 
     setLoading(false);
   };
+
   return (
     <div className="flex flex-col gap-10 items-center justify-center mx-auto min-h-screen w-[400px]">
       <Link
@@ -86,15 +90,6 @@ export default function Login() {
       <div className="flex flex-col gap-5 w-full">
         <form onSubmit={onSubmit} className="flex flex-col gap-3 w-full">
           <div className="flex flex-col gap-6">
-            {/* <div className="flex flex-col gap-2">
-            <Label>Name</Label>
-            <Input
-              id="name"
-              placeholder="Enter your name"
-              type="text"
-              required
-            />
-          </div> */}
             <div className="flex flex-col gap-2">
               <Label className="text-foreground/70">Email Address</Label>
               <Input
@@ -132,43 +127,20 @@ export default function Login() {
           </div>
         </form>
         <div className="flex flex-col gap-4 items-center justify-center w-full">
-          {/* <Button variant={"secondary"} className="rounded-md w-full">
-        Continue with Google
-      </Button> */}
-          {/* <div className="flex flex-row items-center gap-2 w-full">
+          <div className="flex flex-row items-center gap-2 w-full">
             <Separator className="flex-1" />
             <div className="text-xs">OR</div>
             <Separator className="flex-1" />
-          </div> */}
-          {/* <Button
-            variant={"secondary"}
-            className="flex flex-row items-center gap-3 rounded-md w-full"
-            onClick={async () => {
-              const { data, error } = await supabase.auth.signInWithOAuth({
-                provider: "google",
-                options: {
-                  redirectTo: `http://localhost:3000/auth/callback`,
-                },
-              });
-            }}
-          >
-            <Image
-              src="/assets/google-logo.png"
-              width={22}
-              height={22}
-              alt="Google Logo"
-            />{" "}
-            <div>Continue with Google</div>
-          </Button>
+          </div>
           <Button
             variant={"secondary"}
             className="flex flex-row items-center gap-3 rounded-md w-full"
             onClick={async () => {
-              // console.log(location.origin, pathname)
+              const baseURL = getURL(); // 获取 baseURL
               const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "github",
                 options: {
-                  redirectTo: `http://localhost:3000/auth/callback`,
+                  redirectTo: `${baseURL}auth/callback`,
                 },
               });
             }}
@@ -180,7 +152,7 @@ export default function Login() {
               alt="GitHub Logo"
             />{" "}
             <div>Continue with GitHub</div>
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>

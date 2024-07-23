@@ -11,6 +11,7 @@ import { toast, useToast } from "@/app/components/ui/use-toast";
 import { ChevronLeft, Loader } from "lucide-react";
 import { Separator } from "@/app/components/ui/separator";
 import Image from "next/image";
+import { getURL } from "@/app/utils/index"; // 导入 getURL 函数
 
 export default function Signup() {
   const router = useRouter();
@@ -29,11 +30,13 @@ export default function Signup() {
     const name = e.target.name.value;
     const password = e.target.password.value;
 
+    const baseURL = getURL(); // 获取基础URL
+
     if (isPasswordNull) {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `http://nbias.y1h.top/auth/callback`,
+          emailRedirectTo: `${baseURL}auth/callback`,
         },
       });
 
@@ -56,7 +59,7 @@ export default function Signup() {
         email,
         password,
         options: {
-          emailRedirectTo: `http://nbias.y1h.top/auth/callback`,
+          emailRedirectTo: `${baseURL}auth/callback`,
         },
       });
 
@@ -143,11 +146,11 @@ export default function Signup() {
           {/* <Button variant={"secondary"} className="rounded-md w-full">
           Continue with Google
         </Button> */}
-          {/* <div className="flex flex-row items-center gap-2 w-full">
+          <div className="flex flex-row items-center gap-2 w-full">
             <Separator className="flex-1" />
             <div className="text-xs">OR</div>
             <Separator className="flex-1" />
-          </div> */}
+          </div>
           {/* <Button
             variant={"secondary"}
             className="flex flex-row items-center gap-3 rounded-md w-full"
@@ -155,7 +158,7 @@ export default function Signup() {
               const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "google",
                 options: {
-                  redirectTo: `http://localhost:3000/auth/callback`,
+                  redirectTo: `${baseURL}auth/callback`,
                 },
               });
             }}
@@ -167,7 +170,7 @@ export default function Signup() {
               alt="Google Logo"
             />{" "}
             <div>Continue with Google</div>
-          </Button>
+          </Button> */}
           <Button
             variant={"secondary"}
             className="flex flex-row items-center gap-3 rounded-md w-full"
@@ -175,7 +178,7 @@ export default function Signup() {
               const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "github",
                 options: {
-                  redirectTo: `http://localhost:3000/auth/callback`,
+                  redirectTo: `${baseURL}auth/callback`,
                 },
               });
             }}
@@ -187,7 +190,7 @@ export default function Signup() {
               alt="GitHub Logo"
             />{" "}
             <div>Continue with GitHub</div>
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>

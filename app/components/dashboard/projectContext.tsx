@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
+import { getURL } from "@/app/utils/index";
 import {
   ContextMenu,
   ContextMenuCheckboxItem,
@@ -68,7 +68,7 @@ const ProjectContext = ({
 //   const [projectState, setProjectState] = useState<any>(project);
 
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const baseurl = getURL()
   return (
     <Dialog>
       <ContextMenu>
@@ -135,7 +135,7 @@ const ProjectContext = ({
             onClick={async () => {
               // TODO : Generate link more dynamically
               await navigator.clipboard.writeText(
-                `https://aisandbox.com/project/${projectState.id}`
+                `${baseurl}/project/${projectState.id}`
               );
             }}
             inset
