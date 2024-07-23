@@ -32,7 +32,7 @@ export default function Login() {
       const { data, error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `http://localhost:3000/auth/callback`,
+          emailRedirectTo: `http://nbias.y1h.top/auth/callback`,
         },
       });
 
