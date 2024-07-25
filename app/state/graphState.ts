@@ -206,6 +206,7 @@ const graphState = create<RFState>((set, get) => ({
 export default graphState;
 
 graphState.subscribe((state, prevState) => {
+  console.log("graphState updated", state, prevState);
   const { nodes, edges, projectId } = state;
   if (!projectId) {
     console.log("No project id");
@@ -281,6 +282,12 @@ graphState.subscribe((state, prevState) => {
         .upload(`${session?.user.id}/${projectId}.jpeg`, outImage, {
           upsert: true,
         });
+      
+      if (error) {
+        console.log("Upload error:", error.message);
+      } else {
+        console.log("Upload successful:", data);
+      }
     });
   } else {
     console.log("Viewport not found! Unable to Download");

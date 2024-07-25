@@ -172,7 +172,7 @@ export default function Profile() {
         (a: any, b: any) => dayjs(b.updated_at).diff(dayjs(a.updated_at))
       );
     }
-    if (sortType === "Created At") {
+    if (sortType === "Created At")  {
       filteredSectionProjects = [...filteredSectionProjects].sort(
         (a: any, b: any) => dayjs(b.created_at).diff(dayjs(a.created_at))
       );
