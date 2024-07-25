@@ -6,7 +6,7 @@ interface WithAnimationProps {
 }
 
 const withAnimation = <P extends object>(Component: ComponentType<P>) => {
-  return (props: P & WithAnimationProps) => (
+  const WrappedComponent = (props: P & WithAnimationProps) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -15,6 +15,10 @@ const withAnimation = <P extends object>(Component: ComponentType<P>) => {
       <Component {...props} />
     </motion.div>
   );
+
+  WrappedComponent.displayName = `withAnimation(${Component.displayName || Component.name || 'Component'})`;
+
+  return WrappedComponent;
 };
 
 export default withAnimation;
