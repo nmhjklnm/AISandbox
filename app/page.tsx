@@ -77,7 +77,7 @@ export default async function Home() {
           >
             {/* 替换后的 Image 组件 */}
             <Image
-              className="mt-32 border-2 shadow-sm rounded-xl transition-all bg-transparent hover:shadow-md hover:-translate-y-1 hover:scale-[1.005]"
+              className="mt-4 border-2 shadow-sm rounded-xl transition-all bg-transparent hover:shadow-md hover:-translate-y-1 hover:scale-[1.005]"
               src="/assets/editor.svg" // 新的图片路径
               width={1400}
               height={800} // 新的图片尺寸
