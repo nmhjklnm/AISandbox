@@ -1,7 +1,5 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
-import Image from "next/image";
 import {
   Session,
   createClientComponentClient,
@@ -22,7 +20,6 @@ import { toast } from "@/app/components/ui/use-toast";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
@@ -30,13 +27,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/app/components/ui/table";
 
 import ListLayout from "@/app/components/dashboard/listLayout";
 dayjs.extend(relativeTime);
@@ -155,18 +145,18 @@ export default function Profile() {
     if (sectionType === "recent") {
       filteredSectionProjects = [...projectsList];
     }
-    if (sectionType === "favorites") {
-      let onlyFavorites = projectsList.filter(
-        (project: any) => project.favorite
-      );
-      filteredSectionProjects = [...onlyFavorites];
-    }
+    // if (sectionType === "favorites") {
+    //   let onlyFavorites = projectsList.filter(
+    //     (project: any) => project.favorite
+    //   );
+    //   filteredSectionProjects = [...onlyFavorites];
+    // }
 
-    if (sortType === "Alphabetical") {
-      filteredSectionProjects = [...filteredSectionProjects].sort(
-        (a: any, b: any) => a.name.localeCompare(b.name)
-      );
-    }
+    // if (sortType === "Alphabetical") {
+    //   filteredSectionProjects = [...filteredSectionProjects].sort(
+    //     (a: any, b: any) => a.name.localeCompare(b.name)
+    //   );
+    // }
     if (sortType === "Last Modified") {
       filteredSectionProjects = [...filteredSectionProjects].sort(
         (a: any, b: any) => dayjs(b.updated_at).diff(dayjs(a.updated_at))
@@ -210,14 +200,14 @@ export default function Profile() {
                     Recently Viewed
                   </h4>
                 </ToggleGroup.Item>
-                <ToggleGroup.Item
+                {/* <ToggleGroup.Item
                   className="data-[state=on]:bg-foreground/10 rounded-sm"
                   value="favorites"
                 >
                   <h4 className="text-xs text-foreground/60 border-[1px] rounded-md p-[4px] select-none">
                     Favorites
                   </h4>
-                </ToggleGroup.Item>
+                </ToggleGroup.Item> */}
               </ToggleGroup.Root>
             </div>
             <div className="flex flex-row gap-4 items-center">
@@ -242,9 +232,9 @@ export default function Profile() {
                       );
                     }}
                   >
-                    <DropdownMenuRadioItem value="Alphabetical">
+                    {/* <DropdownMenuRadioItem value="Alphabetical">
                       Alphabetical
-                    </DropdownMenuRadioItem>
+                    </DropdownMenuRadioItem> */}
                     <DropdownMenuRadioItem value="Last Modified">
                       Last Modified
                     </DropdownMenuRadioItem>
@@ -260,7 +250,9 @@ export default function Profile() {
                 type="single"
                 value={layout}
                 onValueChange={(value) => {
-                  if (value) setLayout(value);
+                  if (value) {
+                    return setLayout(value);
+                  }
                 }}
               >
                 <ToggleGroup.Item
@@ -286,6 +278,9 @@ export default function Profile() {
           </div>
           {layout === "grid" ? (
             <div className="grid grid-cols-4 gap-4">
+              <div className="  p-4 flex items-center justify-center cursor-pointer">
+                <CreateProjectButton />
+              </div>
               {sectionProjects.map((project: any) => (
                 <ProjectCard
                   key={project.id}

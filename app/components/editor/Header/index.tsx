@@ -26,7 +26,7 @@ const Header = ({
     >
       <div className="flex gap-2 items-center">
         <Link
-          href={"/dashboard"}
+          href={"/tools"}
           className="flex gap-1 p-2 items-center rounded-full shadow-lg select-none bg-background text-foreground hover:text-background hover:bg-foreground border border-foreground/20"
         >
           <Container />

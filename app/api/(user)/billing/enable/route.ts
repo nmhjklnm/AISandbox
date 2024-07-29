@@ -19,7 +19,10 @@ export async function POST(request: NextRequest) {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json(Response.Error("No user found"));
+  
+  if (!user) {
+    return NextResponse.json(Response.Error("No user found"));
+  }
 
   let { data: initialBillingData, error: getInitialBillingDataError } =
     await supabaseAdmin
@@ -46,7 +49,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL; 
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const successURL = `${baseURL}dashboard/billing?session_id={CHECKOUT_SESSION_ID}`;
   const cancelURL = `${baseURL}dashboard/billing`;
 

@@ -5,32 +5,49 @@ import { supabaseAdmin } from "./app/lib/supabase/admin";
 import { Ratelimit } from "@upstash/ratelimit";
 import redis from "./app/lib/redis/client";
 
+// 创建速率限制器
 const ratelimit = new Ratelimit({
   redis: redis,
   limiter: Ratelimit.slidingWindow(10, "10 s"),
   prefix: "@upstash/ratelimit",
 });
 
-// this middleware refreshes the user's session and must be run
-// for any Server Component route that uses `createServerComponentSupabaseClient`
-// TODO : Need rate limiting before performing any database queries for /api/v1/execute, /api/v1/models
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req, res });
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
+type Handler = (req: NextRequest, res: NextResponse, session?: any) => Promise<NextResponse> | NextResponse;
 
-  if (req.nextUrl.pathname.startsWith("/api/v1/execute")) {
+class SimpleRouter {
+  private routes: Map<string, Handler> = new Map();
+
+  public on(path: string, handler: Handler): SimpleRouter {
+    this.routes.set(path, handler);
+    return this;
+  }
+
+  public async route(req: NextRequest, res: NextResponse, session?: any): Promise<NextResponse> {
+    for (const [path, handler] of this.routes) {
+      if (req.nextUrl.pathname.startsWith(path)) {
+        return handler(req, res, session);
+      }
+    }
+    return res; // Default response if no route matches
+  }
+}
+
+// 实例化 SimpleRouter
+const router = new SimpleRouter();
+
+// 注册路由和处理函数
+router
+  .on("/api/v1/execute", async (req, res) => {
     const authorization = req.headers.get("Authorization");
 
+    // 检查是否提供了 API Key
     if (!authorization) {
       return NextResponse.json(
         { error: "API Key not provided in the `Authorization` header." },
         { status: 401 }
       );
     } else {
+      // 对 API Key 进行哈希处理
       const hashedApiKey = await crypto.subtle.digest(
         "SHA-256",
         new TextEncoder().encode(authorization)
@@ -38,8 +55,7 @@ export async function middleware(req: NextRequest) {
 
       const hash = Buffer.from(hashedApiKey).toString("hex");
 
-      // Cached user id from redis
-      // TODO : Ratelimting + caching seems to slow middleware from ~20ms to ~200-300ms, need to diagnose the latency
+      // 从 Redis 缓存中获取用户 ID 和 API Key ID
       let cachedResult = await redis.get<{
         user_id: string;
         api_key_id: string;
@@ -48,9 +64,9 @@ export async function middleware(req: NextRequest) {
       let api_key_id = cachedResult?.api_key_id;
       let user_id = cachedResult?.user_id;
 
-      // TODO : Could be problematic in case of redis database failure, all requests will be blocked
       let success = false;
       if (!user_id) {
+        // 如果缓存中没有找到数据，则从 Supabase 数据库中查询
         const { data: apiTableData, error } = await supabaseAdmin
           .from("apikeys")
           .select("*")
@@ -64,12 +80,10 @@ export async function middleware(req: NextRequest) {
           );
         }
 
-        // 1 day expiry
-        // TODO : Need to set expiry based on the user's plan or failed to pay stripe invoice
+        // 将数据缓存到 Redis 中，过期时间为 1 天
         user_id = apiTableData.user_id;
         api_key_id = apiTableData.id;
         redis.set(
-          // NOTE: No await set to avoid blocking the request
           hash,
           {
             user_id,
@@ -80,58 +94,60 @@ export async function middleware(req: NextRequest) {
           }
         );
 
+        // 进行速率限制检查
         success = (await ratelimit.limit(apiTableData.user_id)).success;
       } else {
-        // Takes around 300ms to execute, sometimes over 1 sec
+        // 如果缓存中有数据，直接进行速率限制检查
         success = (await ratelimit.limit(user_id)).success;
       }
 
-      // If data is found in cache or in database, log the api usage and return the response
       if (success) {
-        // if (error) {
-        //   return NextResponse.json({ error: error.message }, { status: 500 });
-        // }
-
+        // 如果速率限制通过，在响应头中设置用户 ID 和 API Key ID
         res.headers.set("UserId", user_id as string);
         res.headers.set("APIKeyId", api_key_id as string);
-
         return res;
-        // return NextResponse.json({ error: "Success" }, { status: 200 });
       } else {
+        // 如果速率限制未通过，返回 429 状态码和错误信息
         return NextResponse.json(
           { error: "Too many requests, please try again in few seconds" },
           { status: 429 }
         );
       }
     }
-  }
-
-  // Checking if the user is logged in in ui for /api/v1/[models] route.
-  else if (req.nextUrl.pathname.startsWith("/api/v1/models")) {
+  })
+  .on("/api/v1/models", async (req, res, session) => {
     if (session) {
-      // Return an unimplemented response for now
-      // return NextResponse.json(
-      //   { error: "Not implemented yet" },
-      //   { status: 501 }
-      // );
-
-      // Probably should be in the execution.ts extraHeaders
-      res.headers.set("UserId", session.user.id as string); // TODO : Is it going to cause any issues?
+      // 如果用户已登录，在响应头中设置用户 ID
+      res.headers.set("UserId", session.user.id as string);
       return res;
     } else {
+      // 如果用户未登录，返回 401 状态码和错误信息
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    // Dashboard
-  } else if (req.nextUrl.pathname.startsWith("/dashboard") && !session) {
-    return NextResponse.redirect(new URL("/login", req.url));
-
-    // / , /login , /signup and other pages
-  } else {
+  })
+  .on("/dashboard", async (req, res, session) => {
+    if (!session) {
+      // 如果用户未登录，重定向到 /login 页面
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
     return res;
-  }
+  });
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  const supabase = createMiddlewareClient({ req, res });
+
+  // 刷新用户会话
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+
+  // 使用 SimpleRouter 处理请求
+  return router.route(req, res, session);
 }
 
+// 配置中间件匹配的路径
 export const config = {
   matcher: ["/api/:path*", "/dashboard/:path*"],
 };

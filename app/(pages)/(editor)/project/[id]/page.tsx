@@ -85,7 +85,7 @@ export default function Home({ params }: { params: { id: string } }) {
           title: "Error",
           description: error?.message,
         });
-        router.push("/dashboard");
+        router.push("/tools");
       }
     };
 

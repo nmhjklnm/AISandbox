@@ -9,7 +9,9 @@ export const runtime = "edge";
 // TODO : Removing fles from storage sometimes fails
 // TODO : Doesn't delete account if all bills are not paid
 export async function DELETE(request: NextRequest) {
-  if (!cookies) return NextResponse.json(Response.Error("No cookies found"));
+  if (!cookies) {
+    return NextResponse.json(Response.Error("No cookies found"));
+  }
 
   const supabase = createServerComponentClient({ cookies });
 
@@ -17,8 +19,9 @@ export async function DELETE(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return NextResponse.json(Response.Error("No user found"));
-
+  if (!user) {
+    return NextResponse.json(Response.Error("No user found"));
+  }
   const { data, error } = await supabaseAdmin.auth.admin.deleteUser(user.id);
 
   if (error) {

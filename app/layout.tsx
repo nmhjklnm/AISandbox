@@ -14,6 +14,7 @@ const satoshiFont = localFont({
 export const metadata: Metadata = {
   title: "Nbias",
   description: "Prototyping AI architectures in a node based editor.",
+  metadataBase: new URL("https://nbias.y1h.top"), // 替换为你的网站 URL
   openGraph: {
     title: "Workflow",
     description: "Prototyping AI architectures in a node based editor.",

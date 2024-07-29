@@ -4,7 +4,7 @@ import Link from "next/link";
 import { User } from "@supabase/auth-helpers-nextjs";
 import { Button } from "../ui/button";
 import { Workflow } from "lucide-react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const Header = ({ user }: { user: User | null }) => {
   return (
@@ -14,13 +14,17 @@ const Header = ({ user }: { user: User | null }) => {
       transition={{ duration: 1, ease: "easeOut" }}
       className="fixed top-3 flex flex-row items-center justify-between mx-10 w-4/5 md:w-3/4 lg:w-2/3 backdrop-blur-sm bg-background/70 rounded-full shadow-md py-2 pl-4 pr-2 z-20"
     >
-      <Link href="/" className="flex flex-row gap-2 items-center text-2xl font-bold">
-        <Workflow />Nbias
+      <Link
+        href="/"
+        className="flex flex-row gap-1 items-center text-md font-bold antialiased hover:subpixel-antialiased hover:bg-accent hover:rounded-lg hover:px-2 hover:py-1"
+      >
+        <Workflow />
+        Nbias
       </Link>
 
       <div>
         {user ? (
-          <Link href="/dashboard">
+          <Link href="/chat">
             <Button className="rounded-full">Dashboard</Button>
           </Link>
         ) : (

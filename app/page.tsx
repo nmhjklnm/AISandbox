@@ -10,7 +10,7 @@ import LandingCard from "./components/home/Card";
 import RandomChart from "./components/home/chart";
 import ExampleCodes from "./components/home/ExampleCodes";
 import { ContainerScroll } from "./components/ui/container-scroll-animation";
-
+import RetroGrid from "@/components/magicui/retro-grid";
 export const runtime = "edge";
 
 
@@ -45,10 +45,11 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-violet-200 to-pink-200">
+      <RetroGrid />
       <Header user={session ? session.user : null} />
 
       <div className="container flex flex-col items-center gap-10 pt-56 mt-20 bg-transparent border px-4 rounded-full border-violet-300 shadow-md">
-        <div className="flex flex-col overflow-hidden bg-transparent justify-start">
+        <div className="flex w-full h-full flex-col overflow-hidden bg-transparent justify-start">
           <ContainerScroll
             titleComponent={
               <>
@@ -61,7 +62,7 @@ export default async function Home() {
                     Prototype AI architectures in a node based editor.
                   </h4>
                   <div className="flex flex-row gap-5">
-                    <Link href={session ? "/dashboard" : "/signup"}>
+                    <Link href={session ? "/chat" : "/signup"}>
                       <Button
                         className="flex gap-2 w-fit rounded-3xl border-2 pl-6 pr-4 border-foreground font-bold hover:shadow-xl transition-all transform hover:scale-105"
                         size="lg"
@@ -140,7 +141,7 @@ export default async function Home() {
             Start building AI architectures{" "}
             <span className="underline">{getTimeDescription()}</span>.
           </div>
-          <Link href={session ? "/dashboard" : "/signup"} className="">
+          <Link href={session ? "/chat" : "/signup"} className="">
             <Button
               className="flex gap-2 w-fit rounded-3xl border-2 pl-6 pr-4 border-foreground font-bold hover:shadow-xl transition-all transform hover:scale-105"
               size="lg"

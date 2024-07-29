@@ -31,7 +31,7 @@ export const nodeExecution = async (
   previousNodes: Node[],
   isFrontEnd: boolean
 ): Promise<Node> => {
-  const type = node.type;
+  const { type } = node;
 
   if (type === undefined) {
     throw new Error("Invalid Node");

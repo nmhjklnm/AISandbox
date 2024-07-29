@@ -61,10 +61,8 @@ export default function DashboardLayout({
             className="text-base flex flex-row items-center gap-2"
             href="https://github.com/"
           >
-            <ArrowUpRight className="text-foreground/50" size={21} />{" "}
-            GitHub
+            <ArrowUpRight className="text-foreground/50" size={21} /> GitHub
           </Link>
-        
         </section>
         <Separator className="" />
         <SignOut />
